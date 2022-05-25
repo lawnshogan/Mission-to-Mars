@@ -8,28 +8,28 @@ executable_path = {'executable_path': ChromeDriverManager().install()}
 browser = Browser('chrome', **executable_path, headless=False)
 
 # Visit the mars nasa news site
-url = 'https://redplanetscience.com'
-browser.visit(url)
+# First scrape, the news title and paragraph summary
+def mars_news(browser):
+    url = 'https://redplanetscience.com'
+    browser.visit(url)
 # Optional delay for loading the page
 # searching for elements with a specific combination of tag (div) and attribute (list_text
 # also telling our browser to wait one second before searching for components
-browser.is_element_present_by_css('div.list_text', wait_time=1)
+    browser.is_element_present_by_css('div.list_text', wait_time=1)
 
 # Set up the HTML parser
-html = browser.html
-news_soup = soup(html, 'html.parser')
-slide_elem = news_soup.select_one('div.list_text')
+    html = browser.html
+    news_soup = soup(html, 'html.parser')
+    try:
+        slide_elem = news_soup.select_one('div.list_text')
 
 # Begin Scraping
-slide_elem.find('div', class_='content_title')
-
 # Output should be the HTML containing the content title 
 # and anything else nested inside of that <div />
 
 
 # Use the parent element to find the first `a` tag and save it as `news_title`
-news_title = slide_elem.find('div', class_='content_title').get_text()
-news_title
+        news_title = slide_elem.find('div', class_='content_title').get_text()
 
 
 # For example, if we were to use .find_all() instead of .find() 
@@ -37,8 +37,13 @@ news_title
 # on the page instead of just the first one.
 
 # Use the parent element to find the paragraph text
-news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
-news_p
+        news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
+    except AttributeError:
+        return None, None
+
+return news_title, news_p
+
+
 
 # ### Featured Images
 
