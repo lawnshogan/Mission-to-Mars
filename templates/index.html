@@ -13,14 +13,14 @@
   <body>
     <div class="container">
       <!-- Add Jumbotron to Header -->
-      <div class="jumbotron text-center" style="background-image: url('https://wallpapercave.com/wp/wp2461878.jpg'); background-position: center; background-size: cover;height: 250px;">
-        <h1 style="color:white">Mission to Mars</h1>
+      <div class="jumbotron text-center">
+        <h1>Mission to Mars</h1>
         <!-- Add a button to activate scraping script -->
-        <p><a class="btn btn-danger btn-xs" href="/scrape" role="button">Scrape New Data</a></p>
+        <p><a class="btn btn-primary btn-xs" href="/scrape" role="button">Scrape New Data</a></p>
       </div>
-
+      <!-- Add section for Mars News -->
       <div class="row" id="mars-news">
-        <div class="col-md-12">
+        <div class="col-lg-12">
           <div class="media">
             <div class="media-body">
               <h2>Latest Mars News</h2>
@@ -30,17 +30,16 @@
           </div>
         </div>
       </div>
-
+      <!-- Section for Featured Image and Facts table -->
       <div class="row" id="mars-featured-image">
         <div class="col-lg-8 col-md-8 col-sm-12">
           <h2>Featured Mars Image</h2>
           <img
-            src="{{mars.featured_image | default('static/images/error.png', true) }}"
+            src="{{mars.featured_image }}"
             class="img-responsive"
             alt="Responsive image"
           />
         </div>
-
         <div class="col-lg-4 col-md-4 col-sm-12">
           <!-- Mars Facts -->
           <div class="table" id="mars-facts">
@@ -50,13 +49,13 @@
         </div>
       </div>
 
+      <!-- Section for Mars Hemispheres -->
       <div class="row" id="mars-hemispheres">
         <div class="page-header">
           <h2 class="text-center">Mars Hemispheres</h2>
         </div>
-
         {% for hemisphere in mars.hemispheres %}
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <div class="thumbnail">
             <img src="{{hemisphere.img_url | default('static/images/error.png', true)}}" alt="Responsive image" class="img-responsive" >
             <div class="caption">
